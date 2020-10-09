@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Country TimeZone</title>
+    <script>
+        let a, date, time;
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        setInterval(() => {
+            a = new Date();
+            date = a.toLocaleDateString(undefined, options);
+            time = a.getHours() + ':' + a.getMinutes() + ':' + a.getSeconds();
+            document.getElementById('time').innerHTML = time + " on " + date;
+        }, 1000);
+
+        function calcTime(city, offset) {
+            d = new Date();
+            // convert to msec add local time zone offset get UTC time in msec
+            utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            // new Date object for different city using supplied offset
+            nd = new Date(utc + (3600000 * offset));
+            return "The local time in " + city + " is " + nd.toLocaleString();
+        }
+        setInterval(() => {
+            document.getElementById('mumbaiTime').innerHTML = calcTime('Bombay', '+5.5');
+        }, 1000);
+        setInterval(() => {
+            document.getElementById('singaporeTime').innerHTML = calcTime('Singapore', '+8');
+        }, 1000);
+
+        setInterval(() => {
+            document.getElementById('londonTime').innerHTML = calcTime('London', '+1');
+        }, 1000);
+
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:#ccff99 !important;color:#fff !important;"
+    >
+        <a class="navbar-brand" href="#">Country TimeZone</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="container my-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Current Time Is : <h3><span id="time"></span></h3></h1>
+            <hr class="my-4">
+            <p>We are here to show you the time for differnt countries.</p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                Browse Times
+            </a>
+            <div class="collapse" id="collapseExample">
+                <div class="card my-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="mumbaiTime"></li>
+                        <li class="list-group-item" id="singaporeTime"></li>
+                        <li class="list-group-item" id="londonTime"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
